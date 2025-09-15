@@ -1,5 +1,5 @@
 # 2025_BCS_GRP_9
-This is a repository for learning C programming.
+This is a repository for learning C programming.Working on a vending machine project
 OKORI SADRACH 2025/BCS/205/PS
 SSEGIRINYA SIMON 2025/BCS/215/PS
 OKIROR SIMON PETER 2025/BCS/160/PS
