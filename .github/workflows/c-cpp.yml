@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Item {
+    char name[50];
+    float price;
+    int quantity;
+};  // Added missing brace and semicolon
+
+void display_items(struct Item items[], int num_items);
+float accept_payment();
+void dispense_item(struct Item *item);
+void calculate_change(float paid_amount, float item_price);
+
+int main() {
+    struct Item items[] = {
+        {"Yorghurt", 1.50, 5},
+        {"Latto", 1.00, 8},
+        {"Chocolate", 0.75, 10}
+    };
+    
+    int num_items = sizeof(items) / sizeof(items[0]);
+    
+    int choice;
+    float paid_amount;
+    
+    while (1) {
+        display_items(items, num_items);
+        
+        printf("Enter your choice (1-%d, or 0 to exit): ", num_items);
+        scanf("%d", &choice);
+        
+        if (choice == 0) {
+            printf("So, you're not buying? What might have brought you here?\n");
+            break;
+        }
+        
+        if (choice < 1 || choice > num_items) {
+            printf("Beautiful like that? Make a choice that looks like you!\n");
+            continue;
+        }
+        
+        struct Item *selected_item = &items[choice - 1];
+        
+        if (selected_item->quantity == 0) {
+            printf("Are you seriously willing to buy? %s is out of stock.\n", selected_item->name);
+            continue;
+        }
+        
+        printf("You selected %s. Price: $%.2f\n", selected_item->name, selected_item->price);
+        paid_amount = accept_payment();
+        
+        if (paid_amount >= selected_item->price) {
+            dispense_item(selected_item);
+            calculate_change(paid_amount, selected_item->price);
+            selected_item->quantity--;
+        } else {
+            printf("I had thought that you're serious. Please insert more money or choose another item.\n");
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}
+
+void display_items(struct Item items[], int num_items) {
+    printf("\nAvailable Items:\n");
+    for (int i = 0; i < num_items; i++) {
+        printf("%d. %s - $%.2f (%d in stock)\n", 
+               i+1, items[i].name, items[i].price, items[i].quantity);
+    }
+}
+
+float accept_payment() {
+    float amount;
+    printf("Insert money: $");
+    scanf("%f", &amount);
+    return amount;
+}
+
+void dispense_item(struct Item *item) {
+    printf("Dispensing %s... Enjoy!\n", item->name);
+}
+
+void calculate_change(float paid_amount, float item_price) {
+    float change = paid_amount - item_price;
+    if (change > 0) {
+        printf("Your change: $%.2f\n", change);
+    }
+}
