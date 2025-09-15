@@ -10,6 +10,8 @@ int payment;
 int deno_number;
 int money;
 int main () {
+    int repeat = 1; 
+    while(repeat == 1 ) {
     number=5;
     char *name[]={"Soda", "Water", "Juice", "Crisps", "Chocolate"};
     int price[]={1500, 1000, 2000, 1200, 2500};
@@ -69,8 +71,8 @@ int main () {
     }
             printf("Thanks dear clients, pleased to serve you\n" );
     printf("===================================================\n");
-    return 0;
-
-
-
+   printf("would you like to continue with the purchase? (yes=1,no=0)\n ");
+   scanf("%d",&repeat);
+}
+  return 0;
 }
